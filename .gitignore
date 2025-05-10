@@ -7,3 +7,6 @@ node_modules/ # if using Node.js
 __pycache__/ # if using Python
 .env
 .env
+.env
+__pycache__/
+.venv/

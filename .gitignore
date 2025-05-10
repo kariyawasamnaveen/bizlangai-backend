@@ -5,3 +5,4 @@ __pycache__/ # if using Python
 .env
 node_modules/ # if using Node.js
 __pycache__/ # if using Python
+.env

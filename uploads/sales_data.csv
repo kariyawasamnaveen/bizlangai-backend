@@ -1,0 +1,13 @@
+Year,Quarter,Region,Salesperson,Product,Units Sold,Unit Price,Total Revenue
+2023,Q1,Western,Kasun,Laptop,35,150000,5250000
+2023,Q1,Southern,Nipun,Mouse,120,1500,180000
+2023,Q2,Western,Kasun,Laptop,50,145000,7250000
+2023,Q2,Southern,Nipun,Keyboard,80,2500,200000
+2023,Q3,Northern,Thilina,Laptop,20,148000,2960000
+2023,Q3,Central,Amali,Mouse,200,1600,320000
+2023,Q4,Western,Kasun,Monitor,15,60000,900000
+2023,Q4,Southern,Nipun,Laptop,10,150000,1500000
+2024,Q1,Central,Amali,Monitor,25,58000,1450000
+2024,Q1,Northern,Thilina,Mouse,180,1550,279000
+2024,Q2,Western,Kasun,Keyboard,90,2700,243000
+2024,Q2,Central,Amali,Laptop,40,142000,5680000

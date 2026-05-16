@@ -4,7 +4,7 @@ from app.core.openai_llm import generate_response  # async OpenAI handler
 from app.core.llm_provider import query_flowise    # Flowise REST fallback
 from app.db.database import chats_collection
 from app.services.upload_service import get_last_uploaded_data
-from app.agents.langchain_agent import run_pandas_agent  # ✅ LangChain Agent
+from app.agents.langchain_agent import run_pandas_agent, run_knowledge_agent  # ✅ LangChain Agents
 import pandas as pd
 
 
@@ -22,7 +22,7 @@ async def get_llm_response(prompt: str, source: str = "openai") -> str:
 
     print("📊 Total uploaded rows:", len(uploaded_data))
 
-    # ✅ FORCE using LangChain for testing (you can later change this to len(uploaded_data) > 100)
+    # ✅ 1. Try Spreadsheet Analysis (Pandas Agent)
     if uploaded_data:
         try:
             print("🧠 Switching to LangChain PandasAgent...")
@@ -30,7 +30,15 @@ async def get_llm_response(prompt: str, source: str = "openai") -> str:
             return run_pandas_agent(prompt, df)
         except Exception as e:
             print("❌ LangChain Agent error:", e)
-            # fallback to enriched prompt below
+
+    # ✅ 2. Try Knowledge Base (RAG)
+    try:
+        print("🔍 Searching Knowledge Base...")
+        response = run_knowledge_agent(prompt)
+        if "I couldn't find any relevant information" not in response:
+            return response
+    except Exception as e:
+        print("⚠️ Knowledge retrieval failed:", e)
 
     # 🧠 If no uploaded data or LangChain fails, enrich prompt manually
     if uploaded_data:

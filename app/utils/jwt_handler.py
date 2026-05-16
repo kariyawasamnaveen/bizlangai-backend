@@ -2,8 +2,12 @@
 
 from jose import jwt
 import datetime
+import os
+from dotenv import load_dotenv
 
-SECRET_KEY = "your-secret"  # ⬅️ Use same key as in .env
+load_dotenv()
+
+SECRET_KEY = os.getenv("JWT_SECRET", "default-fallback-secret-key")
 
 def create_access_token(user_id: str, role: str):
     payload = {

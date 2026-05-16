@@ -1,8 +1,17 @@
 # app/db/redis_client.py
 import redis
 import os
+from dotenv import load_dotenv
 
-REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
-REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
+load_dotenv()
 
-redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0)
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
+
+try:
+    redis_client = redis.from_url(REDIS_URL, decode_responses=True)
+    # Ping to check connection
+    redis_client.ping()
+    print("✅ Connected to Redis")
+except Exception as e:
+    print(f"⚠️ Could not connect to Redis: {e}")
+    redis_client = None

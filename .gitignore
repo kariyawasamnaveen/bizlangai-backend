@@ -10,3 +10,4 @@ __pycache__/ # if using Python
 .env
 __pycache__/
 .venv/
+venv/

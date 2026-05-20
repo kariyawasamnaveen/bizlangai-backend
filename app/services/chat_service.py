@@ -35,8 +35,11 @@ async def get_llm_response(prompt: str, source: str = "openai") -> str:
     try:
         print("🔍 Searching Knowledge Base...")
         response = run_knowledge_agent(prompt)
-        if "I couldn't find any relevant information" not in response:
+        if response and "I couldn't find any relevant information" not in response:
             return response
+        else:
+            # If RAG fails, don't crash, let OpenAI handle it as a general query
+            pass
     except Exception as e:
         print("⚠️ Knowledge retrieval failed:", e)
 

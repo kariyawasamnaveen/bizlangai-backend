@@ -11,3 +11,6 @@ __pycache__/ # if using Python
 __pycache__/
 .venv/
 venv/
+static/charts/
+static/uploads/
+last_upload.json

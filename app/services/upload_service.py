@@ -50,3 +50,11 @@ def get_last_uploaded_data() -> list:
     except Exception as e:
         print("⚠️ Could not load uploaded file:", e)
         return []
+
+def clear_uploaded_data():
+    """Clears the last uploaded data."""
+    try:
+        if os.path.exists(LAST_UPLOAD_PATH):
+            os.remove(LAST_UPLOAD_PATH)
+    except Exception as e:
+        print("⚠️ Error clearing uploaded file:", e)

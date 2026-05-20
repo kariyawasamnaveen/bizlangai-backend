@@ -1,6 +1,6 @@
 from fastapi import APIRouter, File, UploadFile
 import os
-from app.services.upload_service import save_uploaded_file
+from app.services.upload_service import save_uploaded_file, clear_uploaded_data
 from app.services.knowledge_service import knowledge_service
 
 router = APIRouter(prefix="/api")
@@ -27,6 +27,7 @@ async def upload_file(file: UploadFile = File(...)):
     
     elif ext in ["pdf", "docx", "txt"]:
         try:
+            clear_uploaded_data()
             result = knowledge_service.process_file(file_location, ext)
             return {"message": result, "filename": file.filename}
         except Exception as e:

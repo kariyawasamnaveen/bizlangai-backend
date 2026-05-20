@@ -17,6 +17,13 @@ class KnowledgeService:
     def process_file(self, file_path: str, file_type: str):
         """Processes a file and stores its embeddings in MongoDB Atlas."""
         
+        # Clear existing knowledge base so old PDFs don't interfere
+        try:
+            self.collection.delete_many({})
+            print("🧹 Cleared old documents from knowledge base.")
+        except Exception as e:
+            print("⚠️ Failed to clear old documents:", e)
+            
         # 1. Load Document
         if file_type == "pdf":
             loader = PyPDFLoader(file_path)

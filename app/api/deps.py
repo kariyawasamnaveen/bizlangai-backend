@@ -1,7 +1,11 @@
 from jose import jwt, JWTError
 from fastapi import Request, HTTPException
 
-SECRET_KEY = "your-secret"  # same as in .env or auth_service
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+SECRET_KEY = os.getenv("JWT_SECRET", "default-fallback-secret-key")
 
 def get_current_user(request: Request):
     token = request.headers.get("Authorization")
@@ -14,5 +18,6 @@ def get_current_user(request: Request):
             "user_id": payload.get("user_id"),
             "role": payload.get("role")
         }
-    except JWTError:
+    except JWTError as e:
+        print(f"❌ JWT Error: {e} | Token: {token[:15]}... | Secret: {SECRET_KEY}")
         raise HTTPException(status_code=401, detail="❌ Invalid token")
